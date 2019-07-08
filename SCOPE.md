@@ -86,3 +86,24 @@ console.log("The spice is: " + spice); // Uncaught ReferenceError: spice is not 
  ### Closure
 * Scoping closure behaviour means they close over vars that are within scope at the time a function is defined
 * Closure allows functions to retain access to given var even if invoked from a different scope
+* Functions retain access to vars defined by their lexical scope, even when invoked from outside the scope
+* Scope used by a function is the scope at function definition, not the scope at function invocation
+
+``` javascript
+var sandwich = "ham and cheese";
+
+function eatSandwich() {
+  console.log("Now eating " + sandwich + "!");
+}
+
+function lunch() {
+  var sandwich = "BLT";
+  eatSandwich();
+}
+
+lunch(); //Now eating ham and cheese!
+```
+* In this example, `eatSandwich` only cares about the variable `sandwich` within its scope at definition time, it  closes over this value at definition and retains access to it, even when called from another scope
+* Thus the importance of defining closure at function definition versus function invocation
+* With lexical scoping(versus dynamic scoping), the functino would not look through the call-stack for the necessary var
+
