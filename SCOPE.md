@@ -9,7 +9,7 @@
  * Scopes can be nested, and follows the same rules
 
  ## Lexical scoping
- * Scope is defined by the source code at author-time, and does not change dynamically at execuriton time
+ * Scope is defined by the source code at author-time, and does not change dynamically at execution time
  * On the other hand, dynamic scoping means that scope is determined by the call stack, and changes depending on how a given function is executed
  * Scope exists on the top level (global), and local level (inside individual functions, or blocks)
  * Scope can nest, meaning code at lower levels of nested scope can access variables defined in higher levels, not vice versa
@@ -18,7 +18,7 @@
  * Each function has its own local scope, code inside the function block obey scoping rules: 1) code inside function may access var defined in global or higher-nested scope, not lower-nested scope, 2) var defined inside function may not be accessed from global or higher-nested scope, may be accessed by lower-nested scope
 
  ``` javascript
- var computer = "hpDesktop";
+var computer = "hpDesktop";
 function apartmentOne() {
   var computer = "iMac";
   
@@ -105,5 +105,5 @@ lunch(); //Now eating ham and cheese!
 ```
 * In this example, `eatSandwich` only cares about the variable `sandwich` within its scope at definition time, it  closes over this value at definition and retains access to it, even when called from another scope
 * Thus the importance of defining closure at function definition versus function invocation
-* With lexical scoping(versus dynamic scoping), the functino would not look through the call-stack for the necessary var
+* With lexical scoping(versus dynamic scoping), the function would not look through the call-stack for the necessary var
 
