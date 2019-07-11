@@ -41,18 +41,3 @@ Hint:  To compute the GCD of 12, 4, and 8, for instance, you can compute:
 or,
         gcd(gcd(12, 4), 8);  // 4
 */
-
-function gcd(arr) {
-  numerator = arr[0];
-  gcd(arr) = arr[1..-1];
-  biggestDivisor = 1;
-  for (i = 2; i <= Math.min(denom); i++) {
-    if (numerator % i === 0 && denom % i === 0) {
-      biggestDivisor = i;
-    }
-  }
-  return biggestDivisor;
-}
-
-arr = (12, 4, 8);
-gcd(arr);
