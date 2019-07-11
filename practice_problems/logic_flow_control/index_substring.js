@@ -43,3 +43,10 @@ function lastIndexOf(firstString, secondString) {
 lastIndexOf('Some strings', 's');                  // 11
 lastIndexOf('Blue Whale, Killer Whale', 'Whale');  // 19
 lastIndexOf('Blue Whale, Killer Whale', 'all');    // -1
+
+// Further exploration: implement lastIndexOf using indexOf
+// Prob 1: how to ensure the functions all matches
+// Prob 2: current implementation takes the match from beginning of firstString, what if the secondString starts in the middle
+function lastIndexOf(firstString, secondString) {
+  indexOf(firstString, secondString)
+}
