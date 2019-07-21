@@ -24,7 +24,7 @@ function outer() {
 }
 console.log(typeof hello); // can't access local scope from here
 var foo = outer; // assign function to another variable
-foo(); // can be used to invoke functio
+foo(); // can be used to invoke function
 ```
 * Recap, how is a variable created? 1. `var` keyword, 2. passing arguments to a function, 3. function declaration
 * A function declaration defines a function, and it defines a variable with the same name as the function, then assigns function to variable
@@ -140,7 +140,7 @@ b = 456;
 ## Hoisting for function declarations
 * Function declarations are also hoisted to the top of scope
 * Entire function declarations is hoisted, including body
-* These two are equivalent.
+* These two are equivalent
 
 ```javascript
 console.log(hello());
@@ -411,7 +411,7 @@ function foo() {
 alert(foo());
 ```
 
-### Function expression behefits
+### Function expression benefits
 
 1. The function expression suggests we are creating an object
 
