@@ -1,6 +1,140 @@
 # Functions, function declaration, function expresssions, hoisting
 * Function declaration -> Anonymous function expressions -> Named function expressions
 * Variable declaration hoisting -> Function declaration hoisting -> Function expression hoisting -> 
+
+## Functions
+* When defining a function: parameters => the function `multiply()` takes two `parameters` a, and b
+* When invoking a function: actual values passed to a function during execution are the `arguments`
+* Functions can be nested
+```javascript
+function one() {
+  function two() {
+    return x;
+  }
+  return y;
+}
+```
+
+## Functional Scopes and Lexical Scoping
+* Code within an inner scope can access any variables in the same scope or any surrounding scope
+* A nested function scope can always access a variable from the outer scope
+
+## Closure
+* A function retains access to (closes over) the var scope currently in effect, this is creating a closure
+* It retains references to everything in scope when closure is created, and retains those references for as long as the closure exists
+* So the function can still access those references when invoke the function
+```javascript
+var name = 'Julian';
+function greet() {
+  function say() {
+    console.log(name);
+  }
+  say();
+}
+greet(); // Julian
+```
+* `greet()` can be called anywhere in program, can access `name` even if `name` if out of scope at invocation point
+* Value of var can change after creating a closure that includes the var, the closure will see the new var (old no longer available)
+
+```javascript
+var count = 1;
+function logCount() {  // create a closure
+  console.log(count);
+}
+
+logCount();            // logs: 1
+
+count += 1;            // reassign count
+logCount();            // closure sees new value for count; logs: 2
+```
+
+## Lexical Scoping
+* Lexical scoping (static scoping, instead of dynamic scoping) is used to resolve variables
+* Source code defines the scope
+* A function creates a scope regardless of whether it's execcuted or not
+* At any point in a JS program, there's a hierarchy of scopes from local scope of code up to program's global scope
+* JS searches from bottm to top when looking for a var, and stops and returns the first var it finds with matching name
+* Vars in a lower scope can shadow/hide a var with same name in a higher scope
+* 
+
+## Adding vars to current scope
+
+* 3 ways: using `var` keyword, use arguments passed to a function, function declaration itself
+```javascript
+function lunch() {    // A function declaration creates a new variable scope
+  var food = 'taco';  // 1. Add a new variable food within the current variable scope
+}
+
+function eat(food) {  // 2. Parameters create variables during function invocation
+  console.log('I am eating ' + food);
+}
+
+function drink() {    // 3. Add a new variable drink within the global variable scope
+  console.log('I am drinking a glass of water');
+}
+```
+* Note the scope of `food` variable from parameter of `eat()`, its scope is the `eat` function because of way source code is written, not because function gets invoked. At runtime, scope implies `eat` can only be accessed from within body of `eat` function
+
+## Variable Assignment
+
+* Var scoping rules also applied to referencing (in addition to assignment)
+```javascript
+var country = 'Spain';
+function update() {
+  country = 'Liechtenstein';
+}
+
+console.log(country);  // logs: Spain
+
+update();
+console.log(country);  // logs: Liechtenstein
+```
+* It sets the first `country` variable it finds by checking current scope and then each higher scope, looking for var with name `country`
+* If JS can't find a matching var, it creates a new global var instead
+
+```javascript
+function assign() {
+  var country1 = 'Liechtenstein';
+  country2 = 'Spain';
+}
+
+assign();
+console.log(country2);   // logs: Spain
+console.log(country1);   // gets ReferenceError
+```
+
+* Above, `country2` is not declared elsewhere, and is assigned a value inside the function
+* Since JS can't find a matching var, it creates a new 'global` variable and logs its value
+* Similar to earlier code in adding vars to current scope section, `country2` is in the global scope because of the way source code is written, not because the `assign` function was executed
+
+## Variable shadowing
+* Var declaration for `name` in `greet()` shadows the outer `name` variable
+* Within `greet()`, can only access the inner `name`
+```javascript
+var name = 'Julian'; //global scope
+
+function greet() { //function scope
+  var name = 'Logan';
+  console.log(name);
+}
+
+greet(); // Logan
+```
+* If function definition has a parameter with same name as a var from outer scope, parameter shadows outer var
+```javascript
+var name = 'Julian';
+
+function greet(name) {
+  console.log(name);
+}
+greet('Sam');  // logs: Sam
+```
+* Throws a `ReferenceError` if it can't ifnd a var anywhere in scope hierarchy
+* Var scoping rules:
+  - Every function declaration creates a new variable scope
+  - Lexical scope uses structure of the source code to determine variable's scope. The code doesn't have to be executed for the scope to exist
+  - All variables in the same or surrounding scopes are available to your code
+
 ## Function declaration
 * Function declaration is the same as a function statement
 * A function declaration defines a variable whose type of function
