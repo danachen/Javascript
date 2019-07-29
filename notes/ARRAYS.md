@@ -118,3 +118,5 @@ friends === roommates;                 // true
 [undefined] == false;    // true -- becomes '' == ''
 [false] == false;        // false -- becomes 'false' == 0, then NaN == 0
 ```
+## Returning values
+* All these methods can return the first element of a 2-element Array: `Array.prototype.shift`, `Array.prototype.splice`, `Array.prototype.slice`
