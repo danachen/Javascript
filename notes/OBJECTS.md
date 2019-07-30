@@ -437,5 +437,436 @@ for (var product in otherProducts) {
   // logs "wheel: 210"
 ```
 
+## Arrays and Objects
+* When to use array versus object as data structures?
+
+### Array
+* Use when data is a list that contains many items
+* Common interaction: adding/retrieving elements, modifying/removing elements, iterating over elements
+* Maintain data in a specific order
+
+```javascript
+[1, 2, 3];
+['Monday', 'Tuesday', 'Wednesday'];
+['Jan', 31, [2015, 2016]];
+```
+
+### Object
+* Use if data is an entity with many parts
+* Interaction required keyed access: using key value to add, retrieve, modify, delete specific data item
+* Objects are also referred ot as associative array
+
+### Arrays are objects
+```javascript
+var a = ['hello', 'world'];
+
+console.log(typeof a);        // "object"
+console.log(a['1']);          // "world", object's bracket notation to access value
+console.log(Object.keys(a));  // ["0", "1"], the keys of the object!
+
+// line 1 is equivalent of:
+var a = {
+  '0': 'hello',
+  '1': 'world',
+};
+
+console.log(typeof a);        // "object"
+console.log(a['1']);          // "world", object's bracket notation to access value
+console.log(Object.keys(a));  // ["0", "1"], the keys of the object!
+```
+
+### Arrays and the length property
+```javascript
+var myArray = [];
+myArray.length;                  // returns 0
+
+myArray = ['foo', 'bar', 'baz'];
+myArray.indexOf('baz');          // returns 2 (this is the largest index)
+myArray.length;                  // returns 3
+```
+* Some array objects are array indexed, some are not
+* A key-value pair is not an element
+* Note that Array.length() only returns the keys with indexes
+* Object.keys(array).length returns the length of all keys
+
+```javascript
+var myArray = [];
+myArray['foo'] = 'bar';
+myArray[0] = 'baz';
+myArray[1] = 'qux';
+
+console.log(myArray);         // logs ['baz', 'qux', foo: 'bar']
+myArray.length;               // returns 2 since foo: 'bar' is not an element
+myArray.indexOf('bar');       // returns -1 since 'bar' isn't in an element
+
+myArray[-1] = 'hello';
+myArray[-2] = 'world';
+myArray.length;               // returns 2
+myArray.indexOf('hello');     // returns -1 since 'hello' is not in an element
+                              // the fact that myArray[-1] is 'hello' is
+                              // coincidental
+myArray.indexOf('world');     // returns -1 since 'world' is not in an element
+
+console.log(myArray);         // logs ['baz', 'qux', foo: 'bar', '-1': 'hello', '-2': 'world']
+Object.keys(myArray).length;  // returns 5 (there are 5 keys at this point)
+myArray.length;               // returns 2 (but only 2 keys are indexes)
+```
+
+* Property name is an array index when it's a non-negative integer
+* `Array.prototype.indexOf` returns -1 if the value it is passed is not an element of the array, even if value is associated with non-index property
+* Value of `length` is dependent on largest array index (index + 1)
+* Logging an array logs all indexed values and every `key: value` pair, logs only the value if it's an element, otherwise logs `key: value` pair if it isn't an element
+* Use `Object.keys(array).length` to count all properties in Array objet, not `array.length`
+
+* Setting an array's `length` property
+
+```javascript
+var myArray = [1, 2, 3];
+myArray.length;         // returns 3
+
+// setting to a larger value than the current largest array index
+myArray.length = 5;
+console.log(myArray);   // logs (5) [1, 2, 3, empty × 2] on Chrome Console
+                        // logs [1, 2, 3, <2 empty slots>] on Firefox console
+                        // logs [1, 2, 3, ,] on node REPL
+myArray.length;         // returns 5
+
+myArray[6] = 'foo';
+myArray.length;         // returns 7
+console.log(myArray);   // logs (7) [1, 2, 3, empty × 3, "foo"] on Chrome Console
+                        // logs [1, 2, 3, <3 empty slots>, "foo"] on Firefox console
+                        // logs [1, 2, 3, , , , 'foo'] on node REPL
+
+// setting to a smaller value than the current largest array index with value
+myArray.length = 2;
+console.log(myArray);   // logs [1, 2]
+
+myArray.length = 5;
+console.log(myArray);   // logs (5) [1, 2, empty × 3] on Chrome Console
+                        // logs [1, 2, <3 empty slots>] on Firefox console
+                        // logs [1, 2, , ,] on node REPL
+myArray.length;         // returns 5
+```
+* Array loses elements, including empty slots, when the length is smaller than the current largest array index
+* Empty slots do not count as elements since they have not been assigned a value, displayed to indicate gaps between actual elements
+* `length` counts empty slots also
+
+### Using object operations with arrays
+* Using `in` to see whether an Object contains a specific key
+
+```javascript
+0 in [];      // false
+0 in [1];     // true
+
+var numbers = [4, 8, 1, 3];
+2 < numbers.length;          // true
+```
+
+* Arithmetic and comparison operators are not very useful with objects
+
+```javascript
+[] + {};                  // "[object Object]" -- becomes "" + "[object Object]"
+[] - {};                  // NaN -- becomes "" - "[object Object]", then 0 - NaN
+'[object Object]' == {};  // true
+'' == {};                 // false
+false == {};              // false
+0 == {};                  // false
+```
+* If an object literal ({}) is used at the beginning of a line, interpreted as a block of code instead of object
+
+```javascript
+{} + [];                  // 0 -- becomes +[]
+{}[0];                    // [0] -- the object is ignored, so the array [0] is returned
+{ foo: 'bar' }['foo'];    // ["foo"]
+{} == '[object Object]';  // SyntaxError: Unexpected token ==
+"[object Object]" == {};  // true; note having {} at the start is different
+```
+* `==` and `===` operators work the same way, two objects are equal only if they are in fact the same object
+```javascript
+var a = {};
+var b = a;
+a == a;                   // true
+a == b;                   // true
+a === b;                  // true
+a == {};                  // false
+a === {};                 // false
+```
+* When modifying properties of an array directly(changing the length property, deleting property, adding properties with keys not array indexes), use caution
+* When performing any of these actions, can lead to unexpected results when working with arrays
+* Properties not array indexes will not be processed by built-in Array methods
+* "Empty slots" also not processed by Array methods, since they are not array elements
+* Be careful passing modified array objects to methods you don't control
+
+### Mutability of values and objects
+* Primitive types are immutable (numbers, string, booleans, null, undefined)
+* Objects are mutable: can be modified without changing identity, the data contained within objects can be changed
+
+```javascript
+var alpha = 'abcde';
+alpha[0] = 'z';     // "z"
+alpha;              // "abcde"
+
+alpha = ['a', 'b', 'c', 'd', 'e'];
+alpha[0] = 'z';       // "z"
+alpha;                // [ "z", "b", "c", "d", "e" ]
+// previous array element `a` will be garbage collected
+```
+* This might cause an issue when passing Array to a Function
+```javascript
+function lessExcitable(text) {
+  return text.replace(/!+/g, '.');  // replaces ! with .
+}
+
+var message = 'Hello!';
+// Calling `replace` on String returns new String with different value
+lessExcitable(message);             // "Hello."
+// Local var `message` is not modified
+message;                            // "Hello!"
+```
+
+```javascript
+// Mutating an array
+function push(array, value) {
+  array[array.length] = value;
+  return array.length;
+}
+
+var numbers = [1, 6, 27, 34];
+push(numbers, 92);                  // 5
+numbers;                            // [ 1, 6, 27, 34, 92 ]
+```
+* The array is modified directly
+
+### More on data types and mutability
+* Data type: instructions to compiler on how to handle a given value
+* Compilers/interpreters evaluate the meaning of code given, and identify appropriate action
+* Compound data types: object, array, function (array and function are subtypes of object)
+
+```javascript
+// Data types
+console.log("\"string\" type:", typeof "string");   // Logs: "string" type: string
+console.log("7 type:", typeof 7);                   // Logs: 7 type is: number
+console.log("7.5 type:", typeof 7.5);               // Logs: 7.5 type is: number, there's no differentiating float/integer types
+console.log("true type:", typeof true);             // Logs: true type: boolean
+console.log("undefined type:", typeof undefined);   // Logs: undefined type: undefined
+console.log("null type:", typeof null);             // Logs: null type: object, rather than null, for legacy reasons
+console.log("{} type:", typeof {});                 // Logs: {} type: object
+console.log("[] type:", typeof []);                 // Logs: [] type: object, rather than array, since array is a subtype of object
+console.log("function type:", typeof function(){}); // Logs: function type: function, even though it's a subtype of object
+```
+
+### Weak and dynamic typing
+* JS is weakly typed: no need to tell interpreter what kind fo value you want to store in a variable
+* Declare with `var` (function scoped), `let` (block scoped) and `const` and move on
+* Dynamic typing: type of value in a var can be changed
+
+```javascript
+var someValue = "Hello, world!";
+console.log("Type of someValue:", typeof someValue);
+  // Logs: Type of someValue: string
+
+someValue = 2018;
+console.log("Type of someValue:", typeof someValue);
+  // Logs: Type of someValue: number
+
+someValue = {};
+console.log("Type of someValue:", typeof someValue);
+  // Logs: Type of someValue: object
+```
+
+* Is a particular value an array or an object? Utility methods and tricks can be used
+
+```javascript
+// Null testing
+var myNullValue = null;
+console.log(typeof myNullValue);          // Logs: object
+console.log(myNullValue === null);        // Logs true
+
+// Array testing
+var myArray = [];
+console.log(typeof myArray);              // Logs: object
+console.log(Array.isArray(myArray));      // Logs: true
+console.log(Array.isArray({}));           // Logs: false
+
+// Integer testing
+console.log(typeof 4);                    // Logs: number
+console.log(Number.isInteger(4));         // Logs: true
+console.log(Number.isInteger(4.0));       // Logs: true
+console.log(Number.isInteger(4.5));       // Logs: false
+
+// NaN testing
+console.log(typeof NaN);                  // Logs: number
+console.log(Number.isNaN(NaN));           // Logs: true
+console.log(Number.isNaN(3));             // Logs: false
+console.log(NaN === NaN);                 // Logs: false
+console.log(NaN !== NaN);                 // Logs: true
+```
+
+### Mutability of data types
+
+```javascript
+var someGreeting = "hello";
+var otherGreeting = someGreeting;
+
+console.log(someGreeting);              // Logs: hello
+console.log(otherGreeting);             // Logs: hello
+
+someGreeting.concat("!!!");
+  // return value: "hello!!!"
+
+console.log(someGreeting);              // Logs: hello
+console.log(otherGreeting);             // Logs: hello
+
+console.log(someGreeting[1]);           // Logs: e
+someGreeting[1] = "a";
+console.log(someGreeting[1]);           // Logs: e
+
+someGreeting = someGreeting.concat("!!!");
+  // reassignment
+
+console.log(someGreeting);              // Logs: hello!!!
+console.log(otherGreeting);             // Logs: hello
+```
+
+* This means that in an array of strings, the array elements can be mutated but not the individual elements themselves
+
+```javascript
+// Comparing the immutability of strings
+var favoritePlanets = ["Mars", "Saturn", "Earth"];
+console.log(favoritePlanets);     // Logs: [ 'Mars', 'Saturn', 'Earth' ]
+favoritePlanets.sort(); // sorts array in place
+console.log(favoritePlanets);     // Logs: [ 'Earth', 'Mars', 'Saturn' ]
+favoritePlanets.push("Jupiter");  // Logs: 
+console.log(favoritePlanets);     // Logs: [ 'Earth', 'Mars', 'Saturn', 'Jupiter' ]
+favoritePlanets[0].concat("2");
+console.log(favoritePlanets);     // Logs: [ 'Earth', 'Mars', 'Saturn', 'Jupiter' ]
+
+// To the mutability of an object
+var lifeDiscovered = {
+  "Earth": true,
+  "Mars": false,
+  "Titan": false,
+};
+
+console.log(lifeDiscovered);
+  // Logs: { Earth: true, Mars: false, Titan: false }
+
+lifeDiscovered["Mars"] = true;
+console.log(lifeDiscovered);
+  // Logs: { Earth: true, Mars: true, Titan: false }
+```
+
+### Coercion
+* It's either implicit or explicit
+
+```javascript
+// Implicit
+console.log("20" + 18);                   // Logs: 2018
+console.log("20" * 18);                   // Logs: 360
+console.log(20 + true);                   // Logs: 21
+console.log("20" == 20);                  // Logs: true
+console.log("20" === 20);                 // Logs: false
+
+// Explicit
+console.log(Number("20") + 18);           // Logs: 38
+console.log(String(20) + String(true));   // Logs: "20true"
+```
+
+## Pure functions and side effects
+
+* Side effects: when functions modify external values directly defined in outer scopes, or mutate Objects passed to Function as arguments.
+* Pure function: no side effect, and always returns the same values given the same arguments
+  - Pure functions always return values, otherwise it doesn't do much of anything
+
+```javascript
+// no external values modified
+function add(a, b) {
+  return a + b;
+}
+
+// side effects, value of `sum` is changed, not a pure function
+var sum = 0;
+function add(a, b) {
+  sum = a + b;
+}
+```
+
+* Not a pure function: when given the same argument values, not the same results are returned
+```javascript
+var currentTotal = 0;
+function addToTotal(num) {
+  return currentTotal + num;
+}
+addToTotal(5);      // returns 5
+currentTotal = 5;
+addToTotal(5);      // returns 10
+```
+* Not a pure function: returns the same value given the same argument, but has side effect of dropping elements from array argument passed to it
+
+```javascript
+function clear(array) { 
+  array.length = 0;
+  return array; 
+}
+```
+### Return values for pure function vs. non-pure function side effects
+
+* When writing function, do you want pure function, or use side effects?
+* If use function for return values, then function call is part of expression, or as right hand side of assignment
+
+```javascript
+function joinString(a, b, c) {
+  return a.concat(b, c);
+}
+
+var result = joinString('hello,', ' ', 'world!');
+console.log(result);             // logs "hello, world!"
+```
+* This has no side effects, since return value is captured and utilized
+
+* If function used for side effect, pass variables you will mutate as arguments
+
+```javascript
+var friends = ['Joe', 'Mary', 'David'];
+
+function removeElement(array, element) {
+  var i;
+  for (i = 0; i < array.length; i += 1) {
+    if (array[i] === element) {
+      array.splice(i, 1);
+    }
+  }
+}
+
+removeElement(friends, 'David');     // undefined
+friends;                             // ["Joe", "Mary"]
+```
+* Takes an array as argument instead of mutating the `friends` array directly
+* Can change the above non-pure to a pure function to elimiate side effects
+
+```javascript
+var friends = ['Joe', 'Mary', 'David'];
+
+function removeElement(array, element) {
+  var newArray = [];
+  var i;
+  for (i = 0; i < array.length; i += 1) {
+    if (array[i] !== element) {
+      newArray.push(array[i]);
+    }
+  }
+
+  return newArray;
+}
+
+removeElement(friends, 'David');    // ["Joe", "Mary"]
+friends;                            // ["Joe", "Mary", "David"]
+```
+* No array is mutated, this has no side effect
+
+
+
+
+
 
 
