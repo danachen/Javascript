@@ -123,9 +123,24 @@ var sal = {};
 console.log(copyProperties(hal, sal));  // 2
 console.log(sal);                       // { model: 9000, enabled: true }
 
-
 // Buggy code debugged
-// Moving up `var sal = {}` solves the problem
+// val sal; is hosited to the top but undefined, the value of `sal` is set to equal local var `destination`
+// assign() returns a new object, so destination and sal are unconnected
+var hal = {
+  model: 9000,
+  enabled: true,
+};
+
+function copyProperties(source, destination) {
+  destination = Object.assign({}, source);
+  size = Object.keys(destination).length;
+  sal = destination;
+  return size;
+}
+
+var sal;
+console.log(copyProperties(hal, sal));  // 2
+sal;                       // { model: 9000, enabled: true }
 
 /* 4. Write a function named wordCount that takes a single String as an argument. 
 The function should return an Object that contains the counts of each word that appears in the provided String. 
@@ -149,5 +164,3 @@ function wordCount(input) {
 }
 
 console.log(wordCount('box car cat bag box'));  // { box: 2, car: 1, cat: 1, bag: 1 }
-
-
