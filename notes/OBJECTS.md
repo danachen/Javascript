@@ -864,6 +864,72 @@ friends;                            // ["Joe", "Mary", "David"]
 ```
 * No array is mutated, this has no side effect
 
+## Working with the function arguments object
+* The `arguments` object allows the Function to take in multiple arguments
+* This object is Array-like, is available inside all Functions, and contains all arguments passed to Function
+
+```javascript
+function logArgs(a) {
+  console.log(arguments[0]);
+  console.log(arguments[1]);
+  console.log(arguments.length);
+}
+
+logArgs(1, 'a');
+
+// logs:
+1
+a
+2
+```
+* Argument values can be accessed using bracket notation, `arguments` has a `length` property.
+
+```javascript
+function logArgs() {
+  console.log(typeof arguments);   // object -> arguments is an object
+  console.log(Array.isArray(arguments)); // false -> and not an array
+  var a = arguments.pop(); // TypeError: Object #<Object> has no method 'pop' // and it doesn't have the usual Array methods
+}
+
+logArgs(1, 2);
+```
+* Create Array from `arguments` object
+`var args = Array.prototype.slice.call(arguments);`
+* This borrows the `slice` method from the `Array` global object
+* When `slice` is applied to `arguments`, it creates an Array that contains the same values as those in arguments
+
+```javascript
+function logArgs() {
+  var args = Array.prototype.slice.call(arguments);
+  console.log(typeof args); // object
+  console.log(Array.isArray(args)); // true => it's an Array
+  var a = args.pop(); // no error message
+  console.log(a); // 2
+}
+
+logArgs(1, 2);
+```
+### Functions that accept any number of arguments
+* The `arguments` object allows any number of arguments to get passed in
+* The weakness of using the `arguments` object is that nothing gets passed in. ES6 uses the syntax `(...args)`, which is more clear
+
+```javascript
+function sum() {
+  var result = 0;
+  var i;
+  for (i = 0; i < arguments.length; i += 1) {
+    result += arguments[i];
+  }
+
+  return result;
+}
+sum();                 // 0
+sum(1, 2, 3);          // 6
+sum(1, 2, 3, 4, 5);    // 15
+```
+
+
+
 
 
 
