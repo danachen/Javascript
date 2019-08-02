@@ -105,7 +105,18 @@ One `a` has global scope, the other is in the function's local scope
 The reassignment of local var a with the function has no effect on global var `a`
 */
 
-// Arguments Part 3, skip
+// !Arguments Part 3 (Lesson 5), what is the output?
+// Array can be mutated
+var a = [1, 2, 3];
+
+function myValue(b) {
+  b[2] += 7; // [3 += 7]
+}
+
+myValue(a);
+console.log(a); //[1, 2, 10]
+
+
 
 // Variable Declarations
 console.log(a);
