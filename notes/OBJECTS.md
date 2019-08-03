@@ -928,6 +928,21 @@ sum(1, 2, 3);          // 6
 sum(1, 2, 3, 4, 5);    // 15
 ```
 
+### Quiz on Objects
+* Can we say that the following function is a "pure function"?
+```javascript
+var currentTotal;
+// lots of code omitted
+
+function addToTotal(a) {
+  return currentTotal + a;
+}
+
+// lots of code omitted
+```
+
+* It is not a pure function since it relies on a variable that isn't scoped locally to the function (currentTotal). Thus, even when called with the same argument as a previous invocation, the function may not return the same value.
+
 
 
 
