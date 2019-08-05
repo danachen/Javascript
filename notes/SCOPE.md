@@ -103,7 +103,7 @@ function lunch() {
 
 lunch(); //Now eating ham and cheese!
 ```
-* In this example, `eatSandwich` only cares about the variable `sandwich` within its scope at definition time, it  closes over this value at definition and retains access to it, even when called from another scope
+* In this example, `eatSandwich` only cares about the variable `sandwich` within its scope at definition time, it closes over this value at definition and retains access to it, even when called from another scope
 * Thus the importance of defining closure at function definition versus function invocation
 * With lexical scoping(versus dynamic scoping), the function would not look through the call-stack for the necessary var
 

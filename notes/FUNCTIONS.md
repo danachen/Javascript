@@ -22,7 +22,7 @@ function one() {
 ## Closure
 * A function retains access to (closes over) the var scope currently in effect, this is creating a closure
 * It retains references to everything in scope when closure is created, and retains those references for as long as the closure exists
-* So the function can still access those references when invoke the function
+* So the function can still access those references when invoking the function
 ```javascript
 var name = 'Julian';
 function greet() {
@@ -55,7 +55,6 @@ logCount();            // closure sees new value for count; logs: 2
 * At any point in a JS program, there's a hierarchy of scopes from local scope of code up to program's global scope
 * JS searches from bottm to top when looking for a var, and stops and returns the first var it finds with matching name
 * Vars in a lower scope can shadow/hide a var with same name in a higher scope
-* 
 
 ## Adding vars to current scope
 
@@ -104,8 +103,8 @@ console.log(country1);   // gets ReferenceError
 ```
 
 * Above, `country2` is not declared elsewhere, and is assigned a value inside the function
-* Since JS can't find a matching var, it creates a new 'global` variable and logs its value
-* Similar to earlier code in adding vars to current scope section, `country2` is in the global scope because of the way source code is written, not because the `assign` function was executed
+* Since JS can't find a matching var, it creates a new `global` variable and logs its value
+* Similar to earlier code in adding vars to current scope section, `country2` is in global scope because of the way source code is written, not because the `assign` function was executed
 
 ## Variable shadowing
 * Var declaration for `name` in `greet()` shadows the outer `name` variable
@@ -129,7 +128,7 @@ function greet(name) {
 }
 greet('Sam');  // logs: Sam
 ```
-* Throws a `ReferenceError` if it can't ifnd a var anywhere in scope hierarchy
+* Throws a `ReferenceError` if it can't find a var anywhere in scope hierarchy
 * Var scoping rules:
   - Every function declaration creates a new variable scope
   - Lexical scope uses structure of the source code to determine variable's scope. The code doesn't have to be executed for the scope to exist
@@ -184,10 +183,9 @@ console.log(typeof functionVar);// string
 ```
 
 ## Function expressions
-
 * Defines a function as part of a larger expression syntax (variable assignment)
 * It's basically a function declaration and assignment at the same time?
-* An anonymous function is defined and assigned to the var `hello`, variable is used to invoke the function
+* An anonymous function is defined and assigned to var `hello`, variable is used to invoke the function
 
 ```javascript
 var hello = function() {
@@ -370,7 +368,7 @@ bar = 'hello';
 bar();
 ```
 
-* Notice that in version 1 of the hoisted code, the function variable is hoisted to the top. And because the variable declaration now effectively becomes a variable reassignment, it's not hoistd, and needs to be processed in the order it's declared. At this point, where the variable invocation is positioned starts to matter. if `bar();` appears before the variable reassignment, then an error is raised.
+* Notice that in version 1 of the hoisted code, the function variable is hoisted to the top. And because the variable declaration now effectively becomes a variable reassignment, it's not hoisted, and needs to be processed in the order it's declared. At this point, where the variable invocation is positioned starts to matter. if `bar();` appears before the variable reassignment, then an error is raised.
 
 ## Some general guidelines for hoisting
 * Declare vars at top of scope
@@ -423,13 +421,13 @@ var a = function bar() {
 ```javascript
 // 1. This gets hoisted
 function foo(){
-    function bar() {
-        return 3;
-    }
-    return bar();
-    function bar() {
-        return 8;
-    }
+  function bar() {
+    return 3;
+  }
+  return bar();
+  function bar() {
+    return 8;
+  }
 }
 console.log(foo());
 ```
@@ -437,21 +435,20 @@ console.log(foo());
 // Processing sequence
 function foo(){
   // define bar once
-    function bar() {
-        return 3;
-    }
-    // redefine it
-    function bar() {
-        return 8;
-    }
-    // return its invocation
-    return bar(); //8
+  function bar() {
+      return 3;
+  }
+  // redefine it
+  function bar() {
+      return 8;
+  }
+  // return its invocation
+  return bar(); //8
 }
 console.log(foo());
 ```
 
 * Sidebar: do function expressions get hoisted too?
-
 ```javascript
 var bar = function() {
   return 3;
@@ -495,11 +492,11 @@ console.log(foo()); //3
 console.log(foo());
 function foo(){
   var bar = function() {
-      return 3;
+    return 3;
   };
   return bar();
   var bar = function() {
-      return 8;
+    return 8;
   };
 }
 ```
