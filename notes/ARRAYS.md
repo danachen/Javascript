@@ -1,5 +1,4 @@
 ## Notes on Arrays
-
 # Ways to declare an array
 ```javascript
 []  // empty array

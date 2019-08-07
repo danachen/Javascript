@@ -571,5 +571,3 @@ var today = function() {return new Date()}
 // Something easier to debug
 var today = function today() {return new Date()}
 ```
-
-
