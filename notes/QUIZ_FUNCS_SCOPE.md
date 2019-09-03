@@ -5,7 +5,7 @@
 2. Statements that are true about the return value of a function.
 * If the `return` statement does not include a value, function implicitly returns `undefined`
 * If the function does not contain an explicit `return` statement, it implicitly returns `undefined`
-* Not true: If a function has `n parameters, you must call it with n arguments. (n is a non-negative integer.)
+* Not true: If a function has `n` parameters, you must call it with n arguments. (n is a non-negative integer.)
   * The number of args passed doesn't have to match the number of parameters, there can be more or fewer
 * Not true: Function expressions and function declarations are different ways to define functions in JavaScript. It has no impact in how JavaScript processes code.
   * It has an impact since both have different hoisting rules

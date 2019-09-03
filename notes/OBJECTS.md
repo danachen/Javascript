@@ -5,6 +5,7 @@
 
 ### Standard built-in objects
 * Built-in objects: `String`, `Array`, `Math`, `Date`
+
 ```javascript
 // Applies toUpperCase() to a string
 'hi'.toUpperCase(); // "HI"
@@ -30,6 +31,7 @@ typeof stringObject;                 // "object"
 ```
 * Other primitive types are the same
 * Except for `null` and `undefined`
+
 ```javascript
 42.5639.toFixed(2);                  // "42.56"
 true.toString();    // true 
@@ -48,6 +50,7 @@ typeof colors;      // "object"
 colors.red;         // "#f00"
 colors.orange;      // "#ff0"
 ```
+
 * Two more ways of creating objects:
 - `new String('foo')`
 - `Object.create()`
@@ -91,7 +94,7 @@ colors.blue = '#00f';
 ```javascript
 (5.234).toString();       // "5.234"
 'pizza'.match(/z/);       // [ "z", index: 2, input: "pizza" ]
-'pizza'.match(/z/).index; 
+'pizza'.match(/z/).index;
 Math.ceil(8.675309);      // 9
 Date.now();               // 1467918983610
 ```
@@ -256,6 +259,7 @@ for (var v of prices) {
   console.log(v);
 }
 ```
+
 4. Built-in function `Array.prototype.forEach`, uses callback function to carry out some operation on each value in array
 ```javascript
 prices.forEach(function(val) {
@@ -281,7 +285,7 @@ for (var i = 0; i < productKeys.length; i += 1) {
 }
   // logs "widget : 400", "gear : 80", "crank : 375", "lever : 870"
   
-// 2. A `for...in` loop, itereates over property names in `products` object
+// 2. A `for...in` loop, iterates over property names in `products` object
 for (var product in products) {
   console.log(product + " : " + products[product]);
 }
@@ -339,7 +343,7 @@ for (var k in prices) {
   // logs 400, 375, 870 ... the 80 is missing!
 ```
 
-* Changing one of the properties to `enumerable:fasle` also affect the object
+* Changing one of the properties to `enumerable:false` also affect the object
 
 ```javascript
 var products = { 
@@ -567,12 +571,12 @@ var numbers = [4, 8, 1, 3];
 ```javascript
 [] + {};                  // "[object Object]" -- becomes "" + "[object Object]"
 [] - {};                  // NaN -- becomes "" - "[object Object]", then 0 - NaN
-'[object Object]' == {};  // true
+'[object Object]' == {};  // true, because {} is an object literal
 '' == {};                 // false
 false == {};              // false
 0 == {};                  // false
 ```
-* If an object literal ({}) is used at the beginning of a line, interpreted as a block of code instead of object
+* If an object literal ({}) is used at the beginning of a line, interpreted as a block of code instead of object, in most cases here, the {} is ignored or causes a syntax error
 
 ```javascript
 {} + [];                  // 0 -- becomes +[]
@@ -656,7 +660,7 @@ console.log("function type:", typeof function(){}); // Logs: function type: func
 ```
 
 ### Weak and dynamic typing
-* JS is weakly typed: no need to tell interpreter what kind fo value you want to store in a variable
+* JS is weakly typed: no need to tell interpreter what kind of value you want to store in a variable
 * Declare with `var` (function scoped), `let` (block scoped) and `const` and move on
 * Dynamic typing: type of value in a var can be changed
 
@@ -679,7 +683,7 @@ console.log("Type of someValue:", typeof someValue);
 ```javascript
 // Null testing
 var myNullValue = null;
-console.log(typeof myNullValue);          // Logs: object
+console.log(typeof myNullValue);          // Logs: object, for legacy reasons (should really be null)
 console.log(myNullValue === null);        // Logs true
 
 // Array testing
@@ -698,7 +702,7 @@ console.log(Number.isInteger(4.5));       // Logs: false
 console.log(typeof NaN);                  // Logs: number
 console.log(Number.isNaN(NaN));           // Logs: true
 console.log(Number.isNaN(3));             // Logs: false
-console.log(NaN === NaN);                 // Logs: false
+console.log(NaN === NaN);                 // Logs: false (this is just a problem in the syntax)
 console.log(NaN !== NaN);                 // Logs: true
 ```
 
@@ -714,7 +718,7 @@ console.log(otherGreeting);             // Logs: hello
 someGreeting.concat("!!!");
   // return value: "hello!!!"
 
-console.log(someGreeting);              // Logs: hello
+console.log(someGreeting);              // Logs: hello, strings are immutable
 console.log(otherGreeting);             // Logs: hello
 
 console.log(someGreeting[1]);           // Logs: e
@@ -724,7 +728,7 @@ console.log(someGreeting[1]);           // Logs: e
 someGreeting = someGreeting.concat("!!!");
   // reassignment
 
-console.log(someGreeting);              // Logs: hello!!!
+console.log(someGreeting);              // Logs: hello!!! reassigned
 console.log(otherGreeting);             // Logs: hello
 ```
 
@@ -761,9 +765,9 @@ console.log(lifeDiscovered);
 
 ```javascript
 // Implicit
-console.log("20" + 18);                   // Logs: 2018
-console.log("20" * 18);                   // Logs: 360
-console.log(20 + true);                   // Logs: 21
+console.log("20" + 18);                   // Logs: 2018, if one argument is a string, the other is coersed into a string
+console.log("20" * 18);                   // Logs: 360, * operator will always turn the argument before and after into x operation
+console.log(20 + true);                   // Logs: 21, second argument is coersed into the type of the first
 console.log("20" == 20);                  // Logs: true
 console.log("20" === 20);                 // Logs: false
 
@@ -942,12 +946,3 @@ function addToTotal(a) {
 ```
 
 * It is not a pure function since it relies on a variable that isn't scoped locally to the function (currentTotal). Thus, even when called with the same argument as a previous invocation, the function may not return the same value.
-
-
-
-
-
-
-
-
-

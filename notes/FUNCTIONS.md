@@ -36,6 +36,22 @@ greet(); // Julian
 * `greet()` can be called anywhere in program, can access `name` even if `name` if out of scope at invocation point
 * Value of var can change after creating a closure that includes the var, the closure will see the new var (old no longer available)
 
+* Another example, note the differences in output based on `return` and `console.log`
+```javascript
+var name = 'Julian';
+function greet() {
+  function say() {
+    var name = 'Aaron';
+    console.log(name); // Aaron (2)
+    return(name);
+  }
+  console.log(name); // Julian (1)
+  console.log(say()); // Aaron (3)
+  return(name);
+}
+console.log(greet()); // Julian (4)
+```
+
 ```javascript
 var count = 1;
 function logCount() {  // create a closure
@@ -160,7 +176,7 @@ var foo = outer; // assign function to another variable
 foo(); // can be used to invoke function
 ```
 * Recap, how is a variable created? 1. `var` keyword, 2. passing arguments to a function, 3. function declaration
-* A function declaration defines a function, and it defines a variable with the same name as the function, then assigns function to variable
+* A function declaration defines a function, and it defines a variable with the same name as the function, then assigns function to variable (thus `typeof outer` would return function, and `var foo` is assigned to `outer` and not `outer()`)
 * With every function declaration, a variable is initialized
 
 ```javascript
@@ -181,6 +197,8 @@ functionVar = 'string reference';
 console.log(typeof stringVar);  //function
 console.log(typeof functionVar);// string
 ```
+
+* Is this an example of dynamic typing? note the stringVar var is reassigned to the function and looks up the var from the bottom up and returns the first value it sees, it's not dynamically typed, meaning it's not looking at the rest of the stack to see what functionVar might be later on
 
 ## Function expressions
 * Defines a function as part of a larger expression syntax (variable assignment)
@@ -224,6 +242,7 @@ foo();                       // Uncaught ReferenceError: foo is not defined
 * Using named function expression is useful for debugging, can show function name in call stack
 
 * What's the difference between a named function expression and function declarations? If a statement starts with `function`, it's a function declaration, otherwise a function expression
+* Note that only the named expression is in scope, and not the function expression itself and this is a Uncaught ReferenceError
 
 ```javascript
 function foo() {
@@ -299,6 +318,8 @@ var hello = function() {
 };
 ```
 
+* In the below case (same as above), `var hello` is declared but not assigned, so no type is attached to the var. When trying to log `hello()`, an uncaught typeerror is raised. If you try to log `hello` instead, the return value would be `undefined`.
+* A function expression works the same way as a variable, where the declaration is hoisted but not the assignment. In this case, a var is declared with unknown type, and when `console.log` attempts to log the return value of a function, this is unknown. On the contrary, if it attempts to log the value of `hello` as a var, then the return value is `undefined`.
 ```javascript
 var hello;
 console.log(hello()); // raises "Uncaught TypeError"
@@ -309,6 +330,7 @@ hello = function() {
 ## Hoisting var and function declarations
 * Which one is hoisted first when both var and function declaration exist? Function declaration is hoisted first (above the var declaration)
 * The two below are the same
+* Function declaration > var declaration (assignment is not hoisted and is executed based on where it is in the program)
 
 ```javascript
 bar();  // logs undefined
@@ -338,6 +360,7 @@ function bar() {
   console.log('world');
 }
 ```
+
 ```javascript
 // version 2
 var bar = 'hello';
@@ -367,6 +390,7 @@ function bar() {
 bar = 'hello';
 bar();
 ```
+* For version 2, the `function bar()` is indeed hoisted up to the top, but it's then reassigned to a string. So when a function `bar()` gets called, it doesn't exist anymore.
 
 * Notice that in version 1 of the hoisted code, the function variable is hoisted to the top. And because the variable declaration now effectively becomes a variable reassignment, it's not hoisted, and needs to be processed in the order it's declared. At this point, where the variable invocation is positioned starts to matter. if `bar();` appears before the variable reassignment, then an error is raised.
 
@@ -414,10 +438,11 @@ var a = function bar() {
 
 //self invoking function expression
 (function sayHello() {
-  alert("hello!");
+  console.log("hello!"); // hello!
 })();
 ```
 * A few examples to demonstrate the difference between function declaration and function expressions
+* The last function with the function name gets returned. In the below case, both functions `bar` get hoisted, and `return bar()` returns the last function called `bar()`
 ```javascript
 // 1. This gets hoisted
 function foo(){
@@ -456,8 +481,10 @@ var bar = function() {
 ```
 * In this case, the left hand side (var bar) is a var declaration. Variable declaration gets hoisted, but assignment expressions don't. When `bar` is hoisted, the interpreter initially sets `var bar = undefined`. So, the function definition itself is not hoisted.
 
-```javascript
+
 // 2. Look at the sequence of execution here
+* In this case, both var declarations are hoisted to the top, but only the first var declaration is assigned a value. When the `return` command is called, the first function expression is reached, and the second function expressions unreachable. 
+```javascript
 function foo(){
     var bar = function() {
         return 3;
@@ -486,6 +513,7 @@ function foo() {
 }
 console.log(foo()); //3
 ```
+*** I'm here ***
 
 ```javascript
 // 3. Look at execution sequence
@@ -515,7 +543,7 @@ function foo(){
 }
 console.log(foo());
 ```
-
+* Below, function expression is declared but not assigned, `return bar()` is executed before the function expresson is reached.  
 ```javascript
 // 4. Look at execution sequence
 function foo(){

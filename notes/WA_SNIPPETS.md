@@ -116,4 +116,26 @@ start();
 ```
 * The above returns `blue`
 
-* 
+3. Object shadows and coersions (example)[https://stackoverflow.com/questions/4750225/what-does-object-object-mean]
+* There are 5 primitive types in JS: `null`, `string`, `boolean`, `undefined`, and `number`
+* Three of these primitive types have object counterparts: `string`, `boolean`, and `number`, this means that the primitives can be coersed into their object counterparts
+* The objects are instances of the `String`, `Number`, and `Boolean` constructors
+* How do primitives have access to the methods of their object counterparts? JS coerses the primitive types to their object counterparts when required
+
+```javascript
+var myObj = {lhs: 3, rhs: 2};
+var myFunc = function(){}
+var myString = "This is a sample String";
+var myNumber = 4;
+var myArray = [2, 3, 5];
+var myUndefined = undefined;
+var myNull = null;
+
+Object.prototype.toString.call(myObj);    //"[object Object]"
+Object.prototype.toString.call(myFunc);    //"[object Function]"
+Object.prototype.toString.call(myString);    //"[object String]"
+Object.prototype.toString.call(myNumber);    //"[object Number]"
+Object.prototype.toString.call(myArray);    //"[object Array]"
+Object.prototype.toString.call(myUndefined);    //"[object Undefined]"
+Object.prototype.toString.call(myNull);    //"[object Null]"
+```

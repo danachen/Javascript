@@ -55,7 +55,7 @@ apartmentOne();
 apartmentTwo(); 
 ```
 
-* In the above example, each function call checks for a computer var in its local scope before moving up to look in a higher scope
+* In the above example, each function call checks for a `computer var` in its local scope before moving up to look in a higher scope
 * There's also no conflict, each function has only one var called `computer` as far as it knows
 
  ### Block scope
