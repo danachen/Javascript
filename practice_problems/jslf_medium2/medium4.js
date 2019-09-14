@@ -1,3 +1,5 @@
+// Higher order functions
+
 function makeDoubler(caller) {
   return function doubler(number) {
     console.log('This function was called by ' + caller + '.');

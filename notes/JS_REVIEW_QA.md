@@ -312,7 +312,7 @@ newArray.forEach(
 ```
 
 18. What are instances where a collection is not iterable and instances where it is?
-If a collection is an array, then all 4 methods mentioned above can work. If a collection is an object with key-value pairs, then the `for..in` and `forEach` methods won't work.
+If a collection is an array, then all 4 methods mentioned above can work. If a collection is an object with key-value pairs, then the `for` and `forEach` methods won't work.
 
 19. What method is used to access properties on an object?
 The method `Object.getOwnPropertyDescriptors` is used to access the enumerability flag in an object. We can set an object property to `false` by setting `productDescriptors[configurable: false]`
@@ -364,7 +364,7 @@ A `for..in` loop can only iterate over properties with the flag `enumerable: tru
 ```javascript
 Object.defineProperty(prices, 1, {enumerable: false});
 
-console.log(prices); //[ 400, 80, 375, 870 ], the array stays the same
+console.log(prices); //[ 400, 80, 375, 870 ], the array stays the same, there's no effect for the for ... of, for, or forEach method
 console.log(Object.getOwnPropertyDescriptors(prices));
 /*
 {
@@ -375,7 +375,10 @@ console.log(Object.getOwnPropertyDescriptors(prices));
   length: { value: 4, writable: true, enumerable: false, configurable: false }
 }
 */
-console.log(prices); // 80 375 870, when enumerated over, it will print out only those that have the flag enumerable: false
+for (idx in prices) {
+  console.log(prices[idx]);
+}
+ // 80 375 870, when enumerated over, it will print out only those that have the flag enumerable: false
 ```
 
 ```javascript
@@ -559,4 +562,9 @@ With explicit coersion, we can use `String()` or `Number()`.
 
 ## Pure functions and side effects
 
-33. What are different ways of 
+33. What is a pure function, and what are different ways that a function is not pure?
+Pure function: the same return values are generated given the same arguments, and there will ALWAYS be a return value
+Functions with side effects: 1) when a higher scoped var is changed in value, 2) given the same arguments, different values can be returned, 3) returns the same value, but has side affects on argument passed in
+
+Note that a function can be used to explicitly return values (pure function), or used to mutate arguments passed in (with side effects). It's fine if the intended effect is to change the argument passed in, but can always modify function so that it doesn't do so (e.g. it only returns the desired value without modifying the argument passed in).
+

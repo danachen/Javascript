@@ -23,4 +23,4 @@ function one() {
   return anotherOne;
 }
 
-one()(77, 97, 116, 114, 105, 120, 33);
+one()(77, 97, 116, 114, 105, 120, 33); // the second set of brackets passes arguments into the return function anotherOne

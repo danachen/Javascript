@@ -16,6 +16,8 @@ console.log(arrayTwo);
 // // When the object was copied from arrayOne to arrayTwo, the reference was copied and not value
 // // ??? Is it that primitives are passed by value and objects are passed by reference?
 // // http://jasonjl.me/blog/2014/10/15/javascript/, it is pass by value for primitives, and pass by sharing for objects
+// https://www.youtube.com/watch?v=E-dAnFdq8k8
+// https://www.youtube.com/watch?v=9ooYYRLdg_g
 
 // /*
 // Javascript uses a pass by value strategy for primitives but uses a call by sharing for objects. 
