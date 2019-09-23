@@ -1,6 +1,6 @@
 # Javascript written test
 * This test will cover the following areas:
-  * Primitive values, types, type coersion
+  * Primitive values, types, type coersion, immutability of primitive types versus mutability of compound types
   * Variable and function scopes, hoisting
   * Function declaration, function expressions, scoping
   * Object properties and mutation
