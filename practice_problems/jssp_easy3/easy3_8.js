@@ -60,12 +60,16 @@ function swapWord(word) {
   return newWord;
 }
 
-function swap(str) {
-  var strArr = str.split(' ');  
-  var newStr = strArr.map(function(word) {
-    return swapWord(word);
-  });
-  return newStr.join(' ');
-}
+// function swap(str) {
+//   var strArr = str.split(' ');  
+//   var newStr = strArr.map(function(word) {
+//     return swapWord(word);
+//   });
+//   return newStr.join(' ');
+// }
 
+// Interesting thing with this solution: #swapWord doesn't take any arguments, you can just pass the method in directly
+function swap(str) {
+  return str.split(" ").map(swapWord).join(' ');
+}
 //
