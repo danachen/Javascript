@@ -16,19 +16,6 @@ At index 2 => index 1 + index 2
 // Need to keep a counter of array index of the old
 // newArr's current index value is evaluated based on its last arr el and oldArr at current index
 
-/*
-function runningTotal(oldArr) {
-  var newArr[0] = oldArr[0];
-
-  for (idx in oldArr) {
-    var newArrayCurrentElement;
-    newArrayCurrentElement = newArr[idx - 1] + oldArr[idx];
-    newArr.push(newArrayCurrentElement);
-  }
-return newArr;
-}
-*/
-
 // This can also probably be solved recursively, by starting at the end, and calling always the last element
 /*
 If we start at the end, and we say the running total of the last element in the new array is
@@ -43,7 +30,38 @@ function findLastElement(oldArr) {
     newArr[last_element] = function findLastElement + oldArr[last_element];
   }
 }
-*
+*/
 
-// Not sure if the recursive function works, but the approach of starting at the end seems intuitive
+// Method 1, iteratively
+function runningTotal(oldArr) {
+  if (oldArr.length === 0) {
+    return oldArr;
+  }
 
+  var newArr = [];
+  newArr[0] = oldArr[0];
+  var newArrayCurrentElement;
+  
+  for (var i = 1; i < oldArr.length; i++) {  
+    newArrayCurrentElement = newArr[i - 1] + oldArr[i];
+    newArr.push(newArrayCurrentElement);
+  }
+  return newArr;
+}
+
+console.log(runningTotal([2, 5, 13]));             // [2, 7, 20]
+console.log(runningTotal([14, 11, 7, 15, 20]));    // [14, 25, 32, 47, 67]
+console.log(runningTotal([3]));                    // [3]
+console.log(runningTotal([]));                     // []
+
+// Further exploration: using the map function
+
+function runningTotal(oldArr) {
+  var newArr = [];
+  var newSum = 0;
+  oldArr.map(function(num) {
+    newSum += num;
+    newArr.push(newSum) ;
+  });
+  return newArr;
+}

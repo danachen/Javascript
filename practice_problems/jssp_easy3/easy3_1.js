@@ -4,12 +4,13 @@
 // Have the age be a random number between 20 and 200 (inclusive).
 
 function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// console.log('Teddy is ' + getRandomInt(20, 200) + ' years old!');
+console.log('Teddy is ' + getRandomInt(20, 200) + ' years old!');
+
+// The rando number generated is between 0 and 1
+// This is then applied to the max and min numbers
 
 /*
 It might be tempting to use Math.round() to accomplish that, 
@@ -23,7 +24,9 @@ All the numbers in between can be rounded to from numbers above AND below their 
 */
 
 function randomBetween(min, max) {
-  return Math.round(20 + Math.random() * (max - min))
+  // return Math.round(Math.random() * (max - min)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+
 }
 
 function between20And200() {

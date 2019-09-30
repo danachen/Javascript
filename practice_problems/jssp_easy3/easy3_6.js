@@ -19,7 +19,7 @@ The next iteration, I take the rightmostNum = 3454, then find the remainder, 345
 Then the counter is down by 1 (the counter returned from the last function is 4, so it's now 3)
 34,543 / 1,000 => 34, and since 34  > 10, 34 % 10 => 4 
 
-So the loop woud like like
+So the loop woud be like
 
 function basecount(inputNumber) {
   // figure out the largest base of 10 number
@@ -49,3 +49,83 @@ function isPalindromicNumber(inputNumber) {
 
 // The keeping the numbers as numbers version is tricky to process from the front and back. The front is tricky since we need to keep track of a current number
 // to decrement and that it's under 10 so a proper remainder can be accessed to compare to the back
+
+// Method 1: convert into string
+// function isPalindrome(input) {
+//   var inputLength = input.length;
+//     var midPoint = Math.floor(inputLength / 2);
+//     for (i = 0; i < midPoint; i++) {
+//       if(input[i] !== input[inputLength - 1 - i]) {
+//         return false;
+//       }
+//     }
+//   return true;
+// }
+
+// function isPalindromicNumber(number) {
+//   var numString = String(number);
+//   return isPalindrome(numString);
+// }
+
+// Method 3: keeping the input as a number
+// function basecount(inputNumber) {
+//   // figure out the largest base of 10 number
+//   var counter = 0;
+//   for (var counter = 0; inputNumber > 10; counter += 1) {
+//     inputNumber /= 10;
+//   }
+//   return counter;
+//   // Math.pow(10, counter);
+// }
+
+// function isPalindromicNumber(inputNumber) {
+//   var powerOf = basecount(inputNumber);
+//   for (var powerOf; powerOf > 0; powerOf -= 1) {
+//     var rightmostRemainder = inputNumber % Math.pow(10, basecount(inputNumber) - powerOf + 1);
+//     var rightmostNum = Math.floor(inputNumber / Math.pow(10, basecount(inputNumber) - powerOf + 1));
+//     // Problem is here: need to keep iterating through the rightmost and leftmost numbers until we're left with 1 digit
+//     var leftmostRemainder = Math.floor(inputNumber / Math.pow(10, powerOf));
+//     var leftmostNum = inputNumber % Math.pow(10, powerOf)
+//     console.log(powerOf);
+//     console.log(inputNumber);
+//     console.log(rightmostRemainder);
+//     console.log(rightmostNum);
+//     console.log(leftmostRemainder);
+//     console.log(leftmostNum);
+
+//     if (rightmostRemainder !== leftmostRemainder) {
+//       return false;
+//     }
+//   }
+//   return true;
+// }
+
+// Further exploration: when the number starts with a 0
+// Those are octal numbers, which means that even when using parseInt, the numbers are converted to octal
+// But any user input should come in as a string, so this shouldn't be a real case problem
+
+function isPalindrome(input) {
+  var inputLength = input.length;
+  console.log(input);
+  console.log(inputLength);
+    var midPoint = Math.floor(inputLength / 2);
+    for (i = 0; i < midPoint; i++) {
+      if(input[i] !== input[inputLength - 1 - i]) {
+        console.log(input[i]);
+        console.log(input[inputLength - 1 - i]);
+        return false;
+      }
+    }
+  return true;
+}
+
+function isPalindromicNumber(number) {
+  var numString = number.toString();
+  console.log(numString);
+  return isPalindrome(numString);
+}
+
+console.log(isPalindromicNumber(0345430));        // true
+// console.log(isPalindromicNumber(123210));       // false
+// console.log(isPalindromicNumber(22));           // true
+// console.log(isPalindromicNumber(5));            // true
