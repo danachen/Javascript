@@ -82,9 +82,21 @@ Here's a list of abstractions
 - E.g. if we are stacking a tower, it takes in the bricks, points out the first brick to begin with, and provides a corner where the finished products should be placed it. It does NOT specify how the bricks should be stacked (horizontally, zig-zag, or vertically)
 
 ## Interrogation
+- The two common functions are `Array.prototype.some` and `Array.prototype.every`. Both invoke callback function for each element of the array iterated over, as other iterating functions do, the element, the index, and the original array.
+- This just means that it has access to these three arguments for each element of the array.
+- Check through the whole array for any element that does or does not satisfy a specific condition. The only difference is the exit condition when implementing the methods.
+- The method, when used, will take two arguments, the array to iterate over, and the function that specifies the conditions for the function to check.
+- The return value is either `true` or `false`
 
 ## Sort
+- The function takes one callback function, which specifies in which direction the sorting should happen. The callback function takes two arguments and compares them, returns -1, 0, and 1 and those determine the direction of the sort
+- This mutates the array in place and can be used for side effect or its own return value
 
 ## Combining abstractions
+- The three-step example of finding the most frequently used initial in an array of names
+- First get initials, then get hash of k-v pairs of initials and counts, then find the most frequently occuring initial
 
 ## Functional abstractions on objects
+- Objects key value pairs can be iterated over but not directly accessed like an array
+- Thus, `Object.keys(ObjectHere)` is used to get an array of keys, and values can also be iterated over this
+
