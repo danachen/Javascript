@@ -1,6 +1,11 @@
 // Inventory item transactions
 
+// iterate over each object
+// select only those that matches the ID
 
+function transactionsFor(id, transactions) {
+  return transactions.filter(transaction => transaction.id == id);
+}
 
 var transactions = [ { id: 101, movement: 'in',  quantity:  5 },
                      { id: 105, movement: 'in',  quantity: 10 },
@@ -13,7 +18,7 @@ var transactions = [ { id: 101, movement: 'in',  quantity:  5 },
                      { id: 102, movement: 'in',  quantity: 22 },
                      { id: 103, movement: 'out', quantity: 15 }, ];
 
-transactionsFor(101, transactions);
+console.log(transactionsFor(101, transactions));
 // returns
 [ { id: 101, movement: "in",  quantity:  5 },
   { id: 101, movement: "in",  quantity: 12 },
