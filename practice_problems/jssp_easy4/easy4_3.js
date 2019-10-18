@@ -19,3 +19,15 @@ Simultaneously filling up both arrays in one loop
 
 Need to insert both arrays into the new array
 */
+
+function halvsies(arr) {
+  var halfWayPoint = Math.ceil(arr.length / 2);
+  var arr1 = arr.slice(0, halfWayPoint);
+  var arr2 = arr.slice(halfWayPoint, arr.length);
+  return ([arr1, arr2]);
+}
+
+console.log(halvsies([1, 2, 3, 4]));       // [[1, 2], [3, 4]]
+console.log(halvsies([1, 5, 2, 4, 3]));    // [[1, 5, 2], [4, 3]]
+halvsies([5]);                // [[5], []]
+halvsies([]);                 // [[], []]

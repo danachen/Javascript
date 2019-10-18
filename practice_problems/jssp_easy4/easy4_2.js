@@ -13,3 +13,11 @@ Return the newly constructed array
 Approach 2:
 Add two arrays, then use some kind of #uniq method to filter out the duplicates
 */
+
+function union(arr1, arr2) {
+  var newArr = arr1.concat(arr2);
+  var filteredArr = newArr.filter((el, idx, arr) => arr.indexOf(el) == idx);
+  return filteredArr;
+}
+
+console.log(union([1, 3, 5], [3, 6, 9]));    // [1, 3, 5, 6, 9]
