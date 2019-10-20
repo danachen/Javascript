@@ -9,3 +9,14 @@ Approach one:
 Approach two:
 - Continue dividing the numbers by 10 and inserting the remainder into a new array, then reversing the array
 */
+
+function digitList(digits) {
+  return String(digits).split('').map(function (el) {
+    return el = Number(el);
+  });
+}
+
+console.log(digitList(12345));       // [1, 2, 3, 4, 5]
+digitList(7);           // [7]
+digitList(375290);      // [3, 7, 5, 2, 9, 0]
+digitList(444);         // [4, 4, 4]
