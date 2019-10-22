@@ -15,3 +15,21 @@ Approach 2:
 - Then we can just grab either of these conditions and plus one
 - Otherwise we grab just the first character 
 */
+
+// Stuck, but strSize and midPoint need to be two different variables
+
+function centerOf(input) {
+  var strSize = input.length;
+  var midPoint = Math.floor(strSize / 2);
+  if (strSize % 2 == 0) {
+    return input.substr(midPoint - 1, 2);
+  } else {
+    return input[midPoint];
+  }
+}
+
+console.log(centerOf('I Love Ruby'));      // "e"
+console.log(centerOf('Launch School'));    // " "
+console.log(centerOf('Launch'));           // "un"
+console.log(centerOf('Launchschool'));     // "hs"
+console.log(centerOf('x'));                // "x"

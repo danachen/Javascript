@@ -10,3 +10,20 @@
 - Push that into the new array as well
 - Turn arrach into string
 */
+
+function reverseWords(input) {
+  var inputArr = input.split(' ');
+  var newArr = [];
+  inputArr.forEach(function(word) {
+    if(word.length <5) {
+      newArr.push(word);
+    } else {
+      newArr.push(word.split('').reverse().join(''));
+    }
+  });
+  return newArr.join(' ');
+}
+
+console.log(reverseWords('Professional'));             // "lanoisseforP"
+console.log(reverseWords('Walk around the block'));    // "Walk dnuora the kcolb"
+console.log(reverseWords('Launch School'));            // "hcnuaL loohcS"
