@@ -1,8 +1,6 @@
 # String and text processing
 
 ## 	String Processing Patterns
-- 
-
 ## String Methods
 ## Practice Problems: Strings
 ## Regular Expressions
