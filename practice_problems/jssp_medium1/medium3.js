@@ -22,7 +22,12 @@ function rotateRightmostDigits(num, lastDigits) {
 }
 
 function maxRotation(input) {
-  
+  var inputString = input.toString();
+  for (i = 0; i < inputString.length; i++) {
+    var newNumToRotate = rotateRightmostDigits(inputString, inputString.length - i);
+    inputString = newNumToRotate;
+  }
+  return parseInt(inputString);
 }
 
 console.log(maxRotation(735291));          // 321579

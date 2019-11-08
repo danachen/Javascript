@@ -4,7 +4,6 @@
 // split the x digits into an array, when x is 3, 291 => 912, so each index is shifted forward by 1
 // the edited part of the array becomes the string and is attached to the original unedited part of the string
 
-
 function rotateRightmostDigits(num, lastDigits) {
   var numStr = num.toString();
   var fixedString = numStr.substr(0, num.toString().length - lastDigits);
