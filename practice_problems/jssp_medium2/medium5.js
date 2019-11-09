@@ -7,7 +7,24 @@
 // featured number greater than the integer. Issue an error message if there is no next featured number.
 
 function featured(num) {
-  
+  var nextNumDivisibleBySeven = (7 - num % 7) + num;
+  for (i = nextNumDivisibleBySeven; i < 9876543201; ) {
+    if (isOdd(nextNumDivisibleBySeven) && uniqueDigits(nextNumDivisibleBySeven)) {
+      return nextNumDivisibleBySeven;
+    } else {
+      nextNumDivisibleBySeven += 7;
+    }
+  }
+}
+
+function isOdd(num) {
+  return num % 2 != 0;
+}
+
+function uniqueDigits(num) {
+  var numArray =  num.toString().split('').sort();
+  let unique = [...new Set(numArray)];
+  return numArray.length == unique.length;
 }
 
 console.log(featured(12));           // 21
