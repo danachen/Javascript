@@ -1,27 +1,28 @@
 // Write a function that displays an 8-pointed star in an nxn grid, where n is an odd integer that 
 // is supplied as an argument to the function. The smallest such star you need to handle is a 7x7 grid (i.e., when n is 7).
-// each line is $lines wide, and $lines high
-// for each line, *xx*xx*
-// each line starts with the * based on its index, 1st line starts with a * on index 0
-// each line only has Math.floor($line/2) *
-// the spaces are calculated by (7 - 0 - 3) / 2
-// * + space * 2 + * + space ** 2 + *
-// space + * + space + * + space + * + space
-// space * 2 + *** + space * 2
-// * x lines
-
-
 
 function star(lines) {
+  var stars = '';
+  var inBetweenSpace = (lines - 3) / 2;
+  var middleRow = '*'.repeat(lines);
+  
+  for (i = 0; i < Math.floor(lines/2); i++) {
+    var frontSpace = i;
+    var starsPerLine;
+    starsPerLine = ' '.repeat(frontSpace) + '*' + ' '.repeat(inBetweenSpace);
+    stars += starsPerLine + '*' + starsPerLine.split('').reverse().join('') + '\n';
+    inBetweenSpace -= 1;
+  }
 
+  stars += middleRow + stars.split('').reverse().join('');
+  return stars;
 }
-
 
 console.log(star(7));
 /* logs
-*  *  *  // * + ' ' * 2 + * + ' ' * 2 + * (1 star, 1 space, 1 space, 1 star, 1 space, 1 space, 1 star)
+*  *  *  // * + ' ' * 2 + * + ' ' * 2 + * (1 star, 2 spaces, 1 star, 2 space, 1 star)
  * * *   // ' ' + * + ' ' + * + ' ' + * + ' ' (1 space, 1 star, 1 space, 1 star, 1 space, 1 star, 1 space)
-  ***    // ' ' * 3 + * x 3 + ' ' * 3 (1 space, 1 space, 1 star, 1 star, 1 star, 1 space, 1 space)
+  ***    // ' ' * 3 + * x 3 + ' ' * 3 (2 spaces, 3 stars, 2 spaces)
 *******
   ***
  * * *
