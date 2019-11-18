@@ -1,5 +1,9 @@
 function range(start, end) {
   var range = [];
+  if (arguments.length == 1) {
+    end = start;
+    start = 0;
+  }
   var element;
   for (element = start; element <= end; element++) {
     range.push(element);
@@ -7,11 +11,6 @@ function range(start, end) {
 
   return range;
 }
-
-function range(end) {
-  return range(0, end);
-}
-
 
 // Examples
 
