@@ -4,3 +4,6 @@
 [submodule "Javascript_resources"]
 	path = Javascript_resources
 	url = https://github.com/danachen/Javascript_resources.git
+[submodule "JS230"]
+	path = JS230
+	url = https://github.com/danachen/JS230.git
