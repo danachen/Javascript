@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <meta name="description" content="">
+  <!-- <link rel="stylesheet" type="text/css" href="/Users/Dana/Downloads/JS Ruby practice current/javascript.info UI exercises/Templates/whitespace-reset.css">
+  <link rel="stylesheet"  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+  <title>Hello World!</title>
+</head>
+<style>
+  body {
+  margin: 10px auto;
+  width: 470px;
+}
+
+h3 {
+  margin: 0;
+  padding-bottom: .3em;
+  font-size: 1.1em;
+}
+
+p {
+  margin: 0;
+  padding: 0 0 .5em;
+}
+
+.pane {
+  background: #edf5e1;
+  padding: 10px 20px 10px;
+  border-top: solid 2px #c4df9b;
+}
+
+.remove-button {
+  float: right;
+  font-size: 110%;
+  color: darkred;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+</style>
+<body>
+  <header>
+  </header>
+  <main>
+    <div class="pane">
+      <h3>Horse</h3>
+      <p>The horse is one of two extant subspecies of Equus ferus. It is an odd-toed ungulate mammal belonging to the taxonomic family Equidae. The horse has evolved over the past 45 to 55 million years from a small multi-toed creature, Eohippus, into the large, single-toed animal of today.</p>
+    </div>
+    <div class="pane">
+      <h3>Donkey</h3>
+      <p>The donkey or ass (Equus africanus asinus) is a domesticated member of the horse family, Equidae. The wild ancestor of the donkey is the African wild ass, E. africanus. The donkey has been used as a working animal for at least 5000 years.</p>
+    </div>
+    <div class="pane">
+      <h3>Cat</h3>
+      <p>The domestic cat (Latin: Felis catus) is a small, typically furry, carnivorous mammal. They are often called house cats when kept as indoor pets or simply cats when there is no need to distinguish them from other felids and felines. Cats are often valued by humans for companionship and for their ability to hunt vermin.
+      </p>
+    </div>
+  </div>
+  </main>
+  <footer>
+  </footer>
+  <script>
+    // With each pane, we insert the x, and then remove the first child if clicked (pane.firstchild)
+    // insertAdjacentHTML has a few methods: beforebegin, afterbegin, beforeend, afterend
+    let panes = document.querySelectorAll('.pane');
+    for (let pane of panes) {
+      pane.insertAdjacentHTML('afterbegin', '<button class="remove-button">[x]</button>');
+      pane.firstChild.onclick = () => pane.remove();
+    }
+  </script>
+</body>
+</html>

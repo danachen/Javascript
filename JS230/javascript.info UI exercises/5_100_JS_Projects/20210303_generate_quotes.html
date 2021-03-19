@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <meta name="description" content="">
+  <link rel="stylesheet" type="text/css" href="/Users/Dana/Downloads/JS Ruby practice current/javascript.info UI exercises/Templates/whitespace-reset.css">
+  <link rel="stylesheet"  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>Hello World!</title>
+</head>
+<body>
+  <header>
+  </header>
+  <main>
+    <div id='box'><span id='text' onclick="generateQuote()">Click for quote</span></div>
+    
+  </main>
+  <footer>
+  </footer>
+  <style>
+   #box {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+      background-color: pink;
+      height: 300px;
+      width: 300px;
+      color: white;
+    }
+
+    #text {
+      color: white;
+    }
+  </style>
+  <script>
+    const quotes = [{quote: 'hello', author: 'AB'}, {quote: 'goodbye', author: 'CD'}, {quote: 'good day', author: 'EF'}, {quote: 'good morning', author: 'GH'}, {quote: 'good night', author: 'IJ'}];
+    function generateQuote() {
+      let index = Math.floor(Math.random() * quotes.length);
+      console.log(index);
+      // Earlier issue with text not freshing every time, because box was used and not text
+      text.innerHTML = quotes[index].quote + '\r\n' + quotes[index].author;
+    }
+  </script>
+</body>
+</html>

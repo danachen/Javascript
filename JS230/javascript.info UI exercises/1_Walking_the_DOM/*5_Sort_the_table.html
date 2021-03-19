@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <meta name="description" content="">
+  <!-- <link rel="stylesheet" type="text/css" href="/Users/Dana/Downloads/JS Ruby practice current/javascript.info UI exercises/Templates/whitespace-reset.css">
+  <link rel="stylesheet"  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+  <title>Hello World!</title>
+</head>
+<body>
+  <header>
+  </header>
+  <main>
+    <table id='table'>
+      <thead>
+      <tr>
+      <th>Name</th><th>Surname</th><th>Age</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr id='rows'>
+      <td>John</td><td>Smith</td><td>10</td>
+      </tr>
+      <tr id='rows'>
+      <td>Pete</td><td>Brown</td><td>15</td>
+      </tr>
+      <tr id='rows'>
+      <td>Ann</td><td>Lee</td><td>5</td>
+      </tr>
+      <tr>
+      <td>...</td><td>...</td><td>...</td>
+      </tr>
+      </tbody>
+      </table>
+  </main>
+  <footer>
+  </footer>
+  <script>
+    let allRows = Array.from(rows);
+
+    // This sorts for first name
+    allRows = allRows.sort((a, b) => {
+      console.log(a.innerHTML);
+      if (a.innerHTML > b.innerHTML) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+
+    // This sorts for the age
+    // allRows = allRows.sort((a, b) => {
+    //   console.log(Number(a.innerHTML.split('<td>')[3].split('</td>')[0]));
+    //   if (Number(a.innerHTML.split('<td>')[3].split('</td>')[0]) > Number(b.innerHTML.split('<td>')[3].split('</td>')[0])) {
+    //     return -1;
+    //   } else {
+    //     return 1;
+    //   }
+    // });
+
+    table.tBodies[0].append(...allRows);
+  </script>
+</body>
+</html>

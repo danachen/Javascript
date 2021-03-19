@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <meta name="description" content="">
+  <!-- <link rel="stylesheet" type="text/css" href="/Users/Dana/Downloads/JS Ruby practice current/javascript.info UI exercises/Templates/whitespace-reset.css">
+  <link rel="stylesheet"  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+  <title>Hello World!</title>
+</head>
+<body>
+  <header>
+  </header>
+  <main>
+    <div id = 'container'></div>
+  </main>
+  <footer>
+  </footer>
+  <script>
+    let data = {
+      "Fish": {
+        "trout": {},
+        "salmon": {}
+      },
+      
+      "Tree": {
+        "Huge": {
+          "sequoia": {},
+          "oak": {}
+        },  
+        "Flowering": {
+          "apple tree": {},
+          "magnolia": {}
+        }
+      }
+    };
+    // creating it from innerHMTL
+    // function createTree(container, data) {
+    //   container.innerHTML = createHTML(data);
+    // }
+
+    // function createHTML(data) {
+    //   let str = '';
+    //   str += '<ul>';
+    //     for (key of Object.keys(data)) {
+    //       if (Object.keys(data[key])) {
+    //         str += '<li>' + key + '\n' + createHTML(data[key]) + '</li>';
+    //       }
+    //     }
+    //   str += '</ul>';
+    //   return str;
+    // }
+
+    // Creating it from DOM
+
+    function createTree(container, data) {
+      container.append(createDOM(data));
+    }
+
+    function createDOM(data) {
+      let ul = document.createElement('ul');
+
+      if (Object.keys(data).length) {
+        for (let li in data) {
+          let newLi = document.createElement('li');
+          newLi.innerHTML = li;
+          
+          let childrenUl = createDOM(data[li]);
+
+          if (childrenUl) {
+            newLi.append(childrenUl);
+          }
+
+          ul.append(newLi);
+        }
+      } else {
+        return;
+      }
+      return ul;
+    }
+
+    createTree(container, data);
+
+
+  </script>
+</body>
+</html>

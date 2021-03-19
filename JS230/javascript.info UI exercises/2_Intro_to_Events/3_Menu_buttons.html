@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <meta name="description" content="">
+  <!-- <link rel="stylesheet" type="text/css" href="/Users/Dana/Downloads/JS Ruby practice current/javascript.info UI exercises/Templates/whitespace-reset.css">
+  <link rel="stylesheet"  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+  <title>Hello World!</title>
+</head>
+<body>
+  <header>
+  </header>
+  <main>
+    <div id="menu">
+      <button data-action="save">Save</button>
+      <button data-action="load">Load</button>
+      <button data-action="search">Search</button>
+    </div>
+  </main>
+  <footer>
+  </footer>
+  <script>
+    class Menu {
+      constructor(elem) {
+        this._elem = elem;
+        elem.onclick = this.onClick.bind(this); // Interesting part is here, if we do bind(menu), then the object bounded is just the html for the menu, if we bind `this`, we get the whole object, along with the methods ... so if menu as a html string was passed to onClick(), it would not work, as the methods are not passed over
+      }
+
+      save() {
+        alert('saving');
+      }
+
+      load() {
+        alert('loading');
+      }
+
+      search() {
+        alert('searching');
+      }
+
+      onClick(event) {
+        let action = event.target.dataset.action;
+        if (action) {
+          this[action]();
+        }
+      };
+    }
+    new Menu(menu);
+  </script>
+</body>
+</html>

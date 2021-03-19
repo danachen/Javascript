@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <meta name="description" content="">
+  <!-- <link rel="stylesheet" type="text/css" href="/Users/Dana/Downloads/JS Ruby practice current/javascript.info UI exercises/Templates/whitespace-reset.css">
+  <link rel="stylesheet"  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+  <title>Hello World!</title>
+</head>
+<body>
+  <header>
+  </header>
+  <main>
+    <br> The ball should never leave the field.
+
+
+  <div id="field">
+    <img src="https://en.js.cx/clipart/ball.svg" id="ball"> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+  </div>
+  </main>
+  <footer>
+  </footer>
+  <style>
+    #field {
+      width: 200px;
+      height: 150px;
+      border: 10px solid black;
+      background-color: #00FF00;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #ball {
+      position: absolute;
+      transition: all 1s;
+    }
+  </style>
+  
+  <script>
+    field.onclick = function(event) {
+      // DOMRect { x: 8, y: 44, width: 220, height: 170, top: 44, bottom: 214, left: 8, right: 228}
+      let fieldCoordinates = this.getBoundingClientRect(); // get window-relative field coordinates
+
+      // Take the coordinates of the ball relative to the entire screen, minus the piece outside of the current element, minus the element border, minus half of the ball width
+      let ballCoordinates = {
+        left: event.clientX - fieldCoordinates.left - field.clientLeft - ball.clientWidth/2,
+        top: event.clientY - fieldCoordinates.top - field.clientTop - ball.clientHeight/2,
+      };
+
+      // Make sure ball can't position outside of left frame
+      if (ballCoordinates.left < 0) ballCoordinates.left = 0;
+
+      // Make sure ball can't position outside of top frame
+      if (ballCoordinates.top < 0) ballCoordinates.top = 0;
+
+      // Make sure ball can't position outside of right frame
+      if (ballCoordinates.left + ball.clientWidth > field.clientWidth) ballCoordinates.left = field.clientWidth - ball.clientWidth;
+
+      // Make sure ball can't position outside of bottom frame
+      if (ballCoordinates.top + ball.clientHeight > field.clientHeight) ballCoordinates.top = field.clientHeight - ball.clientHeight;
+
+      ball.style.top = ballCoordinates.top + 'px';
+      ball.style.left = ballCoordinates.left + 'px';
+      
+    }
+  </script>
+</body>
+</html>
